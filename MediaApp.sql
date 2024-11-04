@@ -18,7 +18,6 @@ CREATE TABLE Users (
 CREATE TABLE Songs (
     SongID INT PRIMARY KEY IDENTITY(1,1),
     Title NVARCHAR(100) NOT NULL,
-    Artist NVARCHAR(100),
     Duration INT, -- Thời lượng tính bằng giây
     FilePath NVARCHAR(500) NOT NULL,
     UploadDate DATETIME DEFAULT GETDATE()
@@ -28,12 +27,9 @@ CREATE TABLE Songs (
 CREATE TABLE Videos (
     VideoID INT PRIMARY KEY IDENTITY(1,1),
     Title NVARCHAR(100) NOT NULL,
-    Description NVARCHAR(500),
-    Duration INT, -- Thời lượng tính bằng giây
-    FilePath NVARCHAR(500) NOT NULL,
-    ThumbnailPath NVARCHAR(500),
-    UploadDate DATETIME DEFAULT GETDATE()
+    FilePath NVARCHAR(500) NOT NULL
 );
+
 
 -- Tạo bảng Playlists
 CREATE TABLE Playlists (
@@ -60,13 +56,4 @@ CREATE TABLE PlaylistVideos (
     OrderNumber INT,
     DateAdded DATETIME DEFAULT GETDATE(),
     PRIMARY KEY (PlaylistID, VideoID)
-);
-CREATE TABLE UserSessions (
-    SessionID INT PRIMARY KEY IDENTITY(1,1),
-    UserID INT FOREIGN KEY REFERENCES Users(UserID),
-    Token NVARCHAR(255) NOT NULL, -- Token để xác thực phiên
-    DeviceInfo NVARCHAR(500), -- Thông tin thiết bị đăng nhập
-    ExpiryDate DATETIME NOT NULL, -- Thời gian hết hạn của phiên
-    IsActive BIT DEFAULT 1,
-    CreatedDate DATETIME DEFAULT GETDATE()
 );
